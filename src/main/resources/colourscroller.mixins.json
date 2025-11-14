@@ -8,7 +8,6 @@
   "client": [
     "MixinMouse",
     "MixinKeyBinding",
-    "MixinItem",
-    "MixinItems"
+    "MixinItem"
   ]
 }

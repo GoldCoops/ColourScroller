@@ -1,12 +1,13 @@
 package net.anware.tmc.colourscroller.scrollables;
 
-import net.minecraft.block.Blocks;
+
+import net.minecraft.item.Items;
 
 import static net.anware.tmc.colourscroller.ScrollableHelper.addSet;
 
 public class DirtScrollables {
     public static void init() {
-        addSet("dirt", Blocks.DIRT, Blocks.COARSE_DIRT, Blocks.ROOTED_DIRT, Blocks.DIRT_PATH, Blocks.FARMLAND,
-                Blocks.MYCELIUM, Blocks.WARPED_NYLIUM, Blocks.CRIMSON_NYLIUM, Blocks.NETHERRACK, Blocks.END_STONE);
+        addSet("dirt", Items.DIRT, Items.COARSE_DIRT, Items.ROOTED_DIRT, Items.DIRT_PATH, Items.FARMLAND,
+                Items.MYCELIUM, Items.WARPED_NYLIUM, Items.CRIMSON_NYLIUM, Items.NETHERRACK, Items.END_STONE);
     }
 }
