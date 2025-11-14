@@ -1,10 +1,7 @@
 package net.anware.tmc.colourscroller;
 
 
-import net.anware.tmc.colourscroller.scrollables.ColourScrollables;
-import net.anware.tmc.colourscroller.scrollables.DirtScrollables;
-import net.anware.tmc.colourscroller.scrollables.OreScrollables;
-import net.anware.tmc.colourscroller.scrollables.RedstoneScrollables;
+import net.anware.tmc.colourscroller.scrollables.*;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 
@@ -27,9 +24,14 @@ public class ScrollableHelper {
 
     public static void initialize() {
         ColourScrollables.init();
-        DirtScrollables.init();
-        OreScrollables.init();
+        OtherBlockScrollables.init();
         RedstoneScrollables.init();
+        MiscScrollables.init();
+        WoodScrollables.init();
+        BuildingBlockScrollables.init();
+        CopperBlockScrollables.init();
+        NaturalBlockScroller.init();
+        MobScrollables.init();
 
         for (int listIndex = 0; listIndex < SCROLLABLE_SETS.size(); listIndex++) {
             List<ScrollableHelper.ColouredEntry> list = SCROLLABLE_SETS.get(listIndex);
@@ -51,10 +53,10 @@ public class ScrollableHelper {
         }
     }
 
-    public static void addSet(String type, Item... blocks) {
+    public static void addSet(String type, Item... items) {
         List<ColouredEntry> set = new ArrayList<>();
 
-        for (Item block : blocks) {
+        for (Item block : items) {
             String id = Registries.ITEM.getId(block).getPath();
             set.add(new ColouredEntry(type, id, block::asItem));
         }

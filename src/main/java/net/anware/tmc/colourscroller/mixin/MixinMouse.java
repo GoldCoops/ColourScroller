@@ -39,7 +39,7 @@ public class MixinMouse {
 
         if (player == null) return false;
         if (!player.isCreative()) return false;
-        if (!Settings.KEY_BASE.isPressed()) return false;
+        if (!Settings.KEY_BASE.isUnbound() && !Settings.KEY_BASE.isPressed()) return false;
 
         int shift = -(int) Math.signum(amount);
         int selectedSlot = player.getInventory().getSelectedSlot();
