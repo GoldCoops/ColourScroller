@@ -1,4 +1,4 @@
-# Colourscroller
+# ColourScroller
 
 A Fabric mod that makes cycling through related items fast and intuitive. Use configurable keys to scroll a single selected item through its color/type variants or to scroll your entire hotbar so all matching item types change together.
 
@@ -45,7 +45,7 @@ You can find the MaliLib library [on modrinth](https://modrinth.com/mod/malilib)
 If you find a bug or want a feature, open an issue on the project GitHub with:
 * A clear description of the problem.
 * Steps to reproduce.
-* Your Colourscroller config file.
+* Your ColourScroller config file.
 * Relevant mod list and Minecraft/Fabric versions.
 
 ## Screenshot
