@@ -24,8 +24,8 @@ You can find the MaliLib library [on modrinth](https://modrinth.com/mod/malilib)
 ## How to Use
 
 * Bind keys in your controls for: Base Key, Scroll Row, Scroll Single.
-* To scroll, hold the Base Key then press the Scroll Row key or the Scroll Single key while using the mouse wheel or keyboard scroll input to move to the next variant.
-* If Base Key is unbound, it is optional and you can use Scroll Row or Scroll Single alone.
+* To scroll, hold the Base Key then press the Scroll Row key or the Scroll Single key while using the mouse wheel to move to the next variant.
+* If Base Key is unbound, it is optional and you can use Scroll Row or Scroll Single without it.
 * Scroll Single: cycles only the selected item (keeps NBT and count). Example: white wool -> light gray wool -> gray wool.
 * Scroll Row: finds all items in your hotbar that share the same family as the selected item and sets them to the same variant you scrolled to. Example: selected white concrete; stained glass, wool, and powdered concrete in the hotbar will also change to the corresponding shade.
 
@@ -49,6 +49,15 @@ If you find a bug or want a feature, open an issue on the project GitHub with:
 * Relevant mod list and Minecraft/Fabric versions.
 
 ## Screenshot
+<img width="373" height="48" alt="Screenshot 2025-11-15 010750" src="https://github.com/user-attachments/assets/58b81e2e-e0bc-437f-9f66-9f8a77bc349a" />
+<img width="373" height="48" alt="Screenshot 2025-11-15 010833" src="https://github.com/user-attachments/assets/4b200ebf-2cee-48b8-81ea-f6fd6e9f9d93" />
+<img width="373" height="48" alt="Screenshot 2025-11-15 010853" src="https://github.com/user-attachments/assets/67cf6e5d-f754-4dba-8e13-f266ace91969" />
+<img width="373" height="48" alt="Screenshot 2025-11-15 011059" src="https://github.com/user-attachments/assets/d32846de-93f8-4c15-855e-c1b1026b18a3" />
+
+<hr>
+<img width="373" height="48" alt="Screenshot 2025-11-15 010917" src="https://github.com/user-attachments/assets/f1b93c5b-f43d-47e8-b383-6e52b93629e6" />
+<img width="373" height="48" alt="Screenshot 2025-11-15 010930" src="https://github.com/user-attachments/assets/02ed163a-31c1-4939-b830-950b3d61a5dc" />
+
 
 ## License
 
