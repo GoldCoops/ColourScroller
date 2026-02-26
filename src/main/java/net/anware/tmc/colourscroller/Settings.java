@@ -20,7 +20,7 @@ public class Settings {
     }
 
     public static KeyBinding createKey(String name, int key) {
-        KeyBinding keybind = new KeyBinding("key." + ColourScroller.ID + "." + name, key, KeyBinding.Category.MISC );
+        KeyBinding keybind = new KeyBinding("key." + ColourScroller.ID + "." + name, key, CUSTOM_CATEGORY );
         KEY_REG.add(keybind);
         return keybind;
     }
