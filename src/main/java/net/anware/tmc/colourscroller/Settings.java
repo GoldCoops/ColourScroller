@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Settings {
-    public static final KeyBinding.Category CUSTOM_CATEGORY = KeyBinding.Category.create(Identifier.of("colour_scroller", "custom_controls"));
+    public static final KeyBinding.Category CUSTOM_CATEGORY = KeyBinding.Category.create(Identifier.of("colourscroller", "custom_controls"));
     public static final List<KeyBinding> KEY_REG = new ArrayList<>();
     public static final KeyBinding KEY_BASE = createKey("base", GLFW.GLFW_KEY_LEFT_CONTROL);
     public static final KeyBinding KEY_SCROLL_SINGLE = createKey("scroll_single", GLFW.GLFW_KEY_X);
