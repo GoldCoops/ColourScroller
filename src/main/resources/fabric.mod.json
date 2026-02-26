@@ -2,10 +2,11 @@
 	"id": "colourscroller",
 	"name": "Colour Scroller",
 	"description": "Use keybinds to scroll across colours",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"authors": [
 		"Anware Canella",
-		"TheMisterFish"
+		"TheMisterFish",
+		"GoldCoops"
 	],
 	"icon": "assets/colourscroller/icon.png",
 	"depends": {
