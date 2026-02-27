@@ -8,9 +8,9 @@ Enable quick in-game cycling of item colours and related variants. Scroll a sing
 
 ## Requirements and info
 
-**This mod required MaliLib to function**
+**This mod requires FabricAPI to function**
 
-You can find the MaliLib library [on modrinth](https://modrinth.com/mod/malilib).
+You can find FabricAPI [on modrinth](https://modrinth.com/mod/fabric-api?version=1.21.11).
 
 **This mod is for client-side only, and only works when in creative mode**
 

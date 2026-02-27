@@ -12,7 +12,6 @@ public class MobScrollables {
                 Items.BROWN_EGG,
                 Items.TURTLE_EGG,
                 Items.SNIFFER_EGG,
-
                 Items.ARMADILLO_SPAWN_EGG,
                 Items.ALLAY_SPAWN_EGG,
                 Items.AXOLOTL_SPAWN_EGG,

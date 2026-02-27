@@ -2,15 +2,16 @@
 	"id": "colourscroller",
 	"name": "Colour Scroller",
 	"description": "Use keybinds to scroll across colours",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"authors": [
 		"Anware Canella",
-		"TheMisterFish"
+		"TheMisterFish",
+		"GoldCoops"
 	],
 	"icon": "assets/colourscroller/icon.png",
 	"depends": {
-		"fabricloader": ">=0.15.11",
-		"minecraft": "~1.21",
+		"fabricloader": ">=0.18.4",
+		"minecraft": "~1.21.11",
 		"java": ">=21",
 		"fabric-api": "*"
 	},
