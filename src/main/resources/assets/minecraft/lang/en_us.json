@@ -2,5 +2,5 @@
 	"key.colourscroller.base": "Base Key",
 	"key.colourscroller.scroll_single": "Scroll Single",
 	"key.colourscroller.scroll_row": "Scroll Row",
-	"key.categories.colourscroller": "Colour Scroller"
+	"key.category.colourscroller.custom_controls": "Colour Scroller"
 }

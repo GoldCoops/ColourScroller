@@ -19,7 +19,6 @@ public class OtherBlockScrollables {
                 Items.NETHERRACK,
                 Items.END_STONE,
                 Items.MUD,
-                Items.MOSS_BLOCK,
                 Items.PALE_MOSS_BLOCK,
                 Items.SOUL_SAND,
                 Items.SOUL_SOIL

@@ -7,7 +7,10 @@ import net.minecraft.component.ComponentType;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.anware.tmc.colourscroller.ConfigurationHandler;
 
+
+import java.io.ObjectInputFilter;
 import java.util.List;
 
 import static net.anware.tmc.colourscroller.ScrollableHelper.SCROLLABLE_SETS;
@@ -21,6 +24,7 @@ public class ColourScroller implements ClientModInitializer {
     public void onInitializeClient() {
         Settings.register();
         ScrollableHelper.initialize();
+        ConfigurationHandler.init();
     }
 
     public static ItemStack getNextScrollable(ScrollableItem indexScrollable, ItemStack currentItemStack, int shift) {

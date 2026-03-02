@@ -24,7 +24,14 @@ repositories {
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+
+
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.21.1'
+
+	// Use official Mojang mappings for 1.21.11
+	//mappings loom.officialMojangMappings()
 
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
