@@ -1,28 +1,30 @@
 {
-	"id": "colourscroller",
-	"name": "Colour Scroller",
-	"description": "Use keybinds to scroll across colours",
-	"version": "1.0.2",
-	"authors": [
-		"Anware Canella",
-		"TheMisterFish",
-		"GoldCoops"
-	],
-	"icon": "assets/colourscroller/icon.png",
-	"depends": {
-		"fabricloader": ">=0.18.4",
-		"minecraft": "~1.21.11",
-		"java": ">=21",
-		"fabric-api": "*"
-	},
-	"environment": "*",
 	"schemaVersion": 1,
+	"id": "colourscroller",
+	"version": "${version}",
+	"name": "Colour Scroller",
+	"description": "Scroll for more",
+	"authors": [
+		"Anware Canella"
+	],
+	"license": "MIT",
+	"icon": "assets/colourscroller/icon.png",
+	"environment": "*",
 	"entrypoints": {
 		"client": [
-			"net.anware.tmc.colourscroller.ColourScroller"
+			"net.anware.minecraft.mods.colourscroller.Client"
 		]
 	},
 	"mixins": [
-		"colourscroller.mixins.json"
-	]
+		"scroll.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.14",
+		"minecraft": "~1.17",
+		"java": ">=16",
+		"fabric": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
 }

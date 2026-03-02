@@ -1,0 +1,14 @@
+{
+	"required": true,
+	"package": "net.anware.minecraft.mods.colourscroller.scroll.mixin",
+	"compatibilityLevel": "JAVA_16",
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	},
+	"mixins": [
+		"PlayerInventoryMixin"
+	]
+}
