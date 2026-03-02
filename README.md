@@ -31,7 +31,7 @@ You can find FabricAPI [on modrinth](https://modrinth.com/mod/fabric-api?version
 
 ## Default Key Bindings
 
-* Base Key: Left Ctrl + Left (default)
+* Base Key: Left Ctrl(default)
 * Scroll Row: C (default)
 * Scroll Single: X (default)
 
