@@ -21,6 +21,12 @@ You can find FabricAPI [on modrinth](https://modrinth.com/mod/fabric-api?version
 * Works across different block families and combinations of block types.
 * Fully configurable key bindings and behavior.
 
+## Planned (please be patient, I'm a University student, and this will be maintained in my free time)
+* ~~Let end users edit and create lists of scrollable items/blocks though a JSON or YML configuration file.~~ (DONE 1.0.2)
+* Create in game GUI to allow users to easily edit, create and manage scrollable block lists.
+* Add survival support (Choose the next item in the set that is in the players inventory)
+
+
 ## How to Use
 
 * Bind keys in your controls for: Base Key, Scroll Row, Scroll Single.
@@ -31,7 +37,7 @@ You can find FabricAPI [on modrinth](https://modrinth.com/mod/fabric-api?version
 
 ## Default Key Bindings
 
-* Base Key: Left Ctrl + Left (default)
+* Base Key: Left Ctrl (default)
 * Scroll Row: C (default)
 * Scroll Single: X (default)
 
@@ -79,3 +85,7 @@ and this is his demo video:
 ### Original project
 
 [colourscroller by Anware-Canella](https://github.com/Anware-Canella/colourscroller)
+
+### Other Previous Maintainers/Forks
+
+[colourscroller by TheMisterFish](https://github.com/TheMisterFish/ColourScroller)
