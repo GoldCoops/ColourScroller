@@ -5,6 +5,8 @@ import net.anware.tmc.colourscroller.scrollables.*;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 
+import static net.anware.tmc.colourscroller.ConfigurationHandler.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,20 +25,42 @@ public class ScrollableHelper {
     }
 
     public static void initialize() {
-        ColourScrollables.init();
-        OtherBlockScrollables.init();
-        RedstoneScrollables.init();
-        MiscScrollables.init();
-        WoodScrollables.init();
-        BuildingBlockScrollables.init();
-        CopperBlockScrollables.init();
-        NaturalBlockScroller.init();
-        MobScrollables.init();
+        checkFirstLaunch();
+
+        if (!FIRST_LAUNCH) loadSetsFromJson(); else {
+            ColourScrollables.init();
+            OtherBlockScrollables.init();
+            RedstoneScrollables.init();
+            MiscScrollables.init();
+            WoodScrollables.init();
+            BuildingBlockScrollables.init();
+            CopperBlockScrollables.init();
+            NaturalBlockScroller.init();
+            MobScrollables.init();
+        }
+
+        rebuildIndexAndApplyToItems();
+
+        System.out.println(SCROLLABLE_SETS);
+    }
+
+
+    public static void clearAllSets() {
+        SCROLLABLE_SETS.clear();
+        SCROLLABLE_LOOKUP.clear();
+    }
+
+
+    public static void rebuildIndexAndApplyToItems() {
+        SCROLLABLE_LOOKUP.clear();
 
         for (int listIndex = 0; listIndex < SCROLLABLE_SETS.size(); listIndex++) {
             List<ScrollableHelper.ColouredEntry> list = SCROLLABLE_SETS.get(listIndex);
             for (int index = 0; index < list.size(); index++) {
-                SCROLLABLE_LOOKUP.put(list.get(index).id(), new ScrollableHelper.ScrollInfo(list.get(index).type(), listIndex, index));
+                SCROLLABLE_LOOKUP.put(
+                        list.get(index).id(),
+                        new ScrollableHelper.ScrollInfo(list.get(index).type(), listIndex, index)
+                );
             }
         }
 
@@ -61,6 +85,10 @@ public class ScrollableHelper {
             set.add(new ColouredEntry(type, id, block::asItem));
         }
 
+        SCROLLABLE_SETS.add(set);
+    }
+
+    public static void addSet(ArrayList<ColouredEntry> set) {
         SCROLLABLE_SETS.add(set);
     }
 }

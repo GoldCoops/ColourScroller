@@ -28,6 +28,8 @@ dependencies {
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 
 
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.21.1'
+
 	// Use official Mojang mappings for 1.21.11
 	//mappings loom.officialMojangMappings()
 
