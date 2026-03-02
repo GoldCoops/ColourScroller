@@ -8,9 +8,9 @@ Enable quick in-game cycling of item colours and related variants. Scroll a sing
 
 ## Requirements and info
 
-**This mod required MaliLib to function**
+**This mod requires FabricAPI to function**
 
-You can find the MaliLib library [on modrinth](https://modrinth.com/mod/malilib).
+You can find FabricAPI [on modrinth](https://modrinth.com/mod/fabric-api?version=1.21.11).
 
 **This mod is for client-side only, and only works when in creative mode**
 
@@ -20,6 +20,12 @@ You can find the MaliLib library [on modrinth](https://modrinth.com/mod/malilib)
 * Scroll an entire hotbar row so every item that belongs to the same family (wool, stained glass, concrete, walls/slabs/stairs, etc.) updates to match the currently selected variant.
 * Works across different block families and combinations of block types.
 * Fully configurable key bindings and behavior.
+
+## Planned (please be patient, I'm a University student, and this will be maintained in my free time)
+* ~~Let end users edit and create lists of scrollable items/blocks though a JSON or YML configuration file.~~ (DONE 1.0.2)
+* Create in game GUI to allow users to easily edit, create and manage scrollable block lists.
+* Add survival support (Choose the next item in the set that is in the players inventory)
+
 
 ## How to Use
 
@@ -31,7 +37,7 @@ You can find the MaliLib library [on modrinth](https://modrinth.com/mod/malilib)
 
 ## Default Key Bindings
 
-* Base Key: Left Ctrl + Left (default)
+* Base Key: Left Ctrl (default)
 * Scroll Row: C (default)
 * Scroll Single: X (default)
 
@@ -79,3 +85,7 @@ and this is his demo video:
 ### Original project
 
 [colourscroller by Anware-Canella](https://github.com/Anware-Canella/colourscroller)
+
+### Other Previous Maintainers/Forks
+
+[colourscroller by TheMisterFish](https://github.com/TheMisterFish/ColourScroller)
