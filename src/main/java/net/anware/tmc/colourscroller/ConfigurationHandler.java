@@ -125,7 +125,6 @@ public class ConfigurationHandler {
                     new TypeReference<List<ConfigSet>>() {}
             );
 
-            // Clear existing sets and rebuild from config
             ScrollableHelper.clearAllSets();
 
             for (ConfigSet set : configSets) {
@@ -148,8 +147,6 @@ public class ConfigurationHandler {
                         continue;
                     }
 
-                    // NOTE: your existing code keys lookup by path only. To keep compatibility,
-                    // we store only the path here. (Better long-term: store full id string.)
                     String pathOnly = id.getPath();
 
                     entries.add(new ScrollableHelper.ColouredEntry(set.type, pathOnly, () -> item));
@@ -160,7 +157,6 @@ public class ConfigurationHandler {
                 }
             }
 
-            // Rebuild lookup and apply metadata onto items
             ScrollableHelper.rebuildIndexAndApplyToItems();
 
         } catch (IOException e) {

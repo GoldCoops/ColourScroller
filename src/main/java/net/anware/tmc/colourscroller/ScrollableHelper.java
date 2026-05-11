@@ -31,15 +31,7 @@ public class ScrollableHelper {
         checkFirstLaunch();
 
         if (!FIRST_LAUNCH) loadSetsFromJson(); else {
-            ColourScrollables.init();
-            OtherBlockScrollables.init();
-            RedstoneScrollables.init();
-            MiscScrollables.init();
-            WoodScrollables.init();
-            BuildingBlockScrollables.init();
-            CopperBlockScrollables.init();
-            NaturalBlockScroller.init();
-            MobScrollables.init();
+            initDefaultSets();
         }
 
         int removed = deduplicate();
@@ -54,6 +46,27 @@ public class ScrollableHelper {
         rebuildIndexAndApplyToItems();
 
         System.out.println(SCROLLABLE_SETS);
+    }
+
+
+    public static void reloadDefaultSets() {
+        clearAllSets();
+        initDefaultSets();
+        rebuildIndexAndApplyToItems();
+        ConfigurationHandler.saveSetsToJson();
+    }
+
+
+    public static void initDefaultSets() {
+        ColourScrollables.init();
+        OtherBlockScrollables.init();
+        RedstoneScrollables.init();
+        MiscScrollables.init();
+        WoodScrollables.init();
+        BuildingBlockScrollables.init();
+        CopperBlockScrollables.init();
+        NaturalBlockScroller.init();
+        MobScrollables.init();
     }
 
     public static int deduplicate() {

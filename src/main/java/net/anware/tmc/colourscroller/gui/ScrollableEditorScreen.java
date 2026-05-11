@@ -70,16 +70,22 @@ public class ScrollableEditorScreen extends Screen {
             ScrollableHelper.replaceAllSets(workingCopy);
             ConfigurationHandler.saveSetsToJson();
             this.close();
-        }).dimensions(this.width / 2 - 152, this.height - 26, 100, 20).build());
+        }).dimensions(this.width / 2 - 202, this.height - 26, 100, 20).build());
 
         this.addDrawableChild(ButtonWidget.builder(Text.literal("Reload File"), btn -> {
             ConfigurationHandler.loadSetsFromJson();
             loadFromCurrentState();
             scrollOffset = 0;
-        }).dimensions(this.width / 2 - 50, this.height - 26, 100, 20).build());
+        }).dimensions(this.width / 2 - 102, this.height - 26, 100, 20).build());
+
+        this.addDrawableChild(ButtonWidget.builder(Text.literal("Reload Default Sets"), btn -> {
+            ScrollableHelper.reloadDefaultSets();
+            loadFromCurrentState();
+            scrollOffset = 0;
+        }).dimensions(this.width / 2 - 2, this.height - 26, 100, 20).build());
 
         this.addDrawableChild(ButtonWidget.builder(Text.literal("Cancel"), btn -> this.close())
-                .dimensions(this.width / 2 + 52, this.height - 26, 100, 20).build());
+                .dimensions(this.width / 2 + 98, this.height - 26, 100, 20).build());
 
         clampScroll();
     }
