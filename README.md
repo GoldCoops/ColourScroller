@@ -35,8 +35,8 @@ You can find FabricAPI [on modrinth](https://modrinth.com/mod/fabric-api?version
 * If Base Key is unbound, it is optional and you can use Scroll Row or Scroll Single without it.
 * Scroll Single: cycles only the selected item (keeps NBT and count). Example: white wool -> light gray wool -> gray wool.
 * Scroll Row: advances every scrollable item in your hotbar by one step per scroll tick, regardless of list name. Behavior of the cross-list synchronisation is controlled by the **synchronization toggle** at the top of the in-game set editor:
-    * **Sync ON** (default): the longest list among the scrollable items in your hotbar dictates the cycle. While that longest list has more entries to go, every list advances independently; the moment the longest list would wrap back to its first entry, ALL scrollable hotbar items snap to their own first entry. Smaller lists therefore repeat several times during one full pass of the longest list, with their tail entries skipped at the sync point so everything realigns at the start each cycle.
-    * **Sync OFF**: every list scrolls fully and independently — each list advances by one modulo its own size, and they never re-align.
+    * **Sync ON**: the longest list among the scrollable items in your hotbar dictates the cycle. While that longest list has more entries to go, every list advances independently; the moment the longest list would wrap back to its first entry, ALL scrollable hotbar items snap to their own first entry. Smaller lists therefore repeat several times during one full pass of the longest list, with their tail entries skipped at the sync point so everything realigns at the start each cycle.
+    * **Sync OFF** (default): every list scrolls fully and independently — each list advances by one modulo its own size, and they won't re-align. 
 * Open Set Editor: opens an in-game UI for managing scrollable sets at runtime.
 
 ## In-Game Set Editor
