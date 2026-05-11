@@ -52,6 +52,7 @@ public class ScrollableHelper {
     public static void reloadDefaultSets() {
         clearAllSets();
         initDefaultSets();
+        deduplicate();
         rebuildIndexAndApplyToItems();
         ConfigurationHandler.saveSetsToJson();
     }
