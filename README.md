@@ -45,7 +45,7 @@ Press the Open Set Editor key (default `K`) while in-game to open the editor. Fr
 
 * See every scrollable set with its type and item count.
 * Click `Edit` on a set to open its detail screen.
-* In the detail screen: rename the set's `type` (the family used by Scroll Row), add items via `+ Add Item` (opens a searchable item picker), remove the selected item, reorder with `Move Left` / `Move Right`, or delete the whole set.
+* In the detail screen: rename the set's name, add items via `+ Add Item` (opens a searchable item picker), remove the selected item, reorder with `Move Left` / `Move Right`, or delete the whole set.
 * Hold `Shift` while clicking an item in the picker to add multiple items without closing it.
 * Click `+ New Set` on the main editor to create an empty set.
 * Click `Save & Apply` to write changes to `ColourScroller/config/colourscroller.json` and apply them immediately — no restart needed.
