@@ -23,9 +23,9 @@ You can find FabricAPI [on modrinth](https://modrinth.com/mod/fabric-api?version
 
 ## Planned (please be patient, I'm a University student, and this will be maintained in my free time)
 * ~~Let end users edit and create lists of scrollable items/blocks though a JSON or YML configuration file.~~ (DONE 1.0.2)
-* ~~Create in game GUI to allow users to easily edit, create and manage scrollable block lists.~~ (DONE)
+* ~~Create in game GUI to allow users to easily edit, create and manage scrollable block lists.~~ (DONE 1.1.0)
 * Add survival support (Choose the next item in the set that is in the players inventory)
-* Add a way to manage duplicate items in sets
+* ~~Add a way to manage duplicate items in sets~~ (DONE 1.1.0)
 
 
 ## How to Use
