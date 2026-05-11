@@ -4,6 +4,7 @@ package net.anware.tmc.colourscroller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
@@ -13,6 +14,7 @@ import static net.anware.tmc.colourscroller.ScrollableHelper.addSet;
 import static net.anware.tmc.colourscroller.ScrollableHelper.ColouredEntry;
 import static net.anware.tmc.colourscroller.ScrollableHelper.rebuildIndexAndApplyToItems;
 
+import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,10 +25,18 @@ import java.util.List;
 
 public class ConfigurationHandler {
 
-    public static final Path CONFIG_PATH = Paths.get("ColourScroller/config", ColourScroller.ID + ".json");
-    public static final Path FIRST_LAUNCH_PATH = Paths.get("ColourScroller/config", ColourScroller.ID + "_first_launch.json");
+    public static final Path CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve(ColourScroller.ID + "/scrollables.json");
+    public static final Path FIRST_LAUNCH_PATH = FabricLoader.getInstance().getConfigDir().resolve(ColourScroller.ID + "/firstlaunch.json");
+    public static final Path SETTINGS_PATH = FabricLoader.getInstance().getConfigDir().resolve(ColourScroller.ID + "/settings.json");
 
     public static boolean FIRST_LAUNCH = false;
+
+    public static boolean SYNC_ENABLED = false;
+
+    public static class ScrollerSettings {
+        public boolean syncEnabled = true;
+        public ScrollerSettings() {}
+    }
 
     private static final ObjectMapper mapper = new ObjectMapper()
             .enable(SerializationFeature.INDENT_OUTPUT);
@@ -76,6 +86,34 @@ public class ConfigurationHandler {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+
+        loadSettings();
+    }
+
+    public static void loadSettings() {
+        if (Files.exists(SETTINGS_PATH)) {
+            try {
+                ScrollerSettings s = mapper.readValue(SETTINGS_PATH.toFile(), ScrollerSettings.class);
+                if (s != null){
+                    SYNC_ENABLED = s.syncEnabled;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            saveSettings();
+        }
+    }
+
+    public static void saveSettings() {
+        try {
+            Files.createDirectories(SETTINGS_PATH.getParent());
+            ScrollerSettings s = new ScrollerSettings();
+            s.syncEnabled = SYNC_ENABLED;
+            mapper.writeValue(SETTINGS_PATH.toFile(), s);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -130,16 +168,29 @@ public class ConfigurationHandler {
         }
     }
 
-    public static boolean checkFirstLaunch() {
-        if (!Files.exists(FIRST_LAUNCH_PATH)) {
-            try {
-                Files.createDirectories(FIRST_LAUNCH_PATH.getParent());
-                Files.createFile(FIRST_LAUNCH_PATH);
-                FIRST_LAUNCH = true;
-                return true;
-            } catch (IOException e) {
-                e.printStackTrace();
+    public static void saveSetsToJson() {
+        List<ConfigSet> configSets = new ArrayList<>();
+        for (List<ColouredEntry> set : SCROLLABLE_SETS) {
+            if (set == null || set.isEmpty()) continue;
+            String type = set.get(0).type();
+            List<Item> items = new ArrayList<>();
+            for (ColouredEntry entry : set) {
+                items.add(entry.item().get());
             }
+            configSets.add(new ConfigSet(type, items));
+        }
+        try {
+            Files.createDirectories(CONFIG_PATH.getParent());
+            mapper.writeValue(CONFIG_PATH.toFile(), configSets);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static boolean checkFirstLaunch() {
+        if (!Files.exists(SETTINGS_PATH)) {
+            FIRST_LAUNCH = true;
+            return true;
         }
         FIRST_LAUNCH = false;
         return false;
