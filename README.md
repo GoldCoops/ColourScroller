@@ -49,6 +49,7 @@ Press the Open Set Editor key (default `K`) while in-game to open the editor. Fr
 * Hold `Shift` while clicking an item in the picker to add multiple items without closing it.
 * Click `+ New Set` on the main editor to create an empty set.
 * Click `Save & Apply` to write changes to `ColourScroller/config/colourscroller.json` and apply them immediately — no restart needed.
+* Click `Reload Default Sets` to reload the default sets provided (will wipe all established sets without confirmation at the moment)
 * Click `Reload File` to discard local changes and reload from disk, or `Cancel` to discard without saving.
 
 ## Default Key Bindings
