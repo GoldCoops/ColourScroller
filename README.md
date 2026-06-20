@@ -107,3 +107,4 @@ and this is his demo video:
 ### Other Previous Maintainers/Forks
 
 [colourscroller by TheMisterFish](https://github.com/TheMisterFish/ColourScroller)urScroller)
+[colourscroller by TheMisterFish](https://github.com/TheMisterFish/ColourScroller)
