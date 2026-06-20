@@ -14,6 +14,7 @@ public class Settings {
     public static final KeyBinding KEY_BASE = createKey("base", GLFW.GLFW_KEY_LEFT_CONTROL);
     public static final KeyBinding KEY_SCROLL_SINGLE = createKey("scroll_single", GLFW.GLFW_KEY_X);
     public static final KeyBinding KEY_SCROLL_ROW = createKey("scroll_row", GLFW.GLFW_KEY_C);
+    public static final KeyBinding KEY_OPEN_EDITOR = createKey("open_editor", GLFW.GLFW_KEY_K);
 
     public static void register() {
         for (KeyBinding keybind : KEY_REG) KeyBindingHelper.registerKeyBinding(keybind);

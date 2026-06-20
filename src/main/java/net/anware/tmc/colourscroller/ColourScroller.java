@@ -1,16 +1,16 @@
 package net.anware.tmc.colourscroller;
 
+import net.anware.tmc.colourscroller.gui.ScrollableEditorScreen;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.component.ComponentType;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.anware.tmc.colourscroller.ConfigurationHandler;
 
-
-import java.io.ObjectInputFilter;
 import java.util.List;
 
 import static net.anware.tmc.colourscroller.ScrollableHelper.SCROLLABLE_SETS;
@@ -25,19 +25,32 @@ public class ColourScroller implements ClientModInitializer {
         Settings.register();
         ScrollableHelper.initialize();
         ConfigurationHandler.init();
+
+
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            while (Settings.KEY_OPEN_EDITOR.wasPressed()) {
+                if (client.currentScreen == null) {
+                    MinecraftClient.getInstance().setScreen(new ScrollableEditorScreen());
+                }
+            }
+        });
     }
 
     public static ItemStack getNextScrollable(ScrollableItem indexScrollable, ItemStack currentItemStack, int shift) {
-        ScrollableItem oldScrollable = (ScrollableItem) currentItemStack.getItem();
+        return getNextScrollable(currentItemStack, shift, false);
+    }
 
-        List<ScrollableHelper.ColouredEntry> list = SCROLLABLE_SETS.get(oldScrollable.getListIndex());
+
+    public static ItemStack getNextScrollable(ItemStack currentItemStack, int shift, boolean forceZero) {
+        ScrollableItem scrollable = (ScrollableItem) currentItemStack.getItem();
+        int listIndex = scrollable.getListIndex();
+
+        if (listIndex < 0 || listIndex >= SCROLLABLE_SETS.size()) return ItemStack.EMPTY;
+        List<ScrollableHelper.ColouredEntry> list = SCROLLABLE_SETS.get(listIndex);
         if (list == null || list.isEmpty()) return ItemStack.EMPTY;
 
-        int size = list.size();
-        int nextIndex = Math.floorMod(indexScrollable.getIndex() + shift, size);
-
+        int nextIndex = forceZero ? 0 : Math.floorMod(scrollable.getIndex() + shift, list.size());
         ScrollableHelper.ColouredEntry entry = list.get(nextIndex);
-
         return createStack(entry.item().get(), currentItemStack);
     }
 

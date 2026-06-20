@@ -9,8 +9,11 @@ import static net.anware.tmc.colourscroller.ConfigurationHandler.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Supplier;
 
 public class ScrollableHelper {
@@ -28,20 +31,63 @@ public class ScrollableHelper {
         checkFirstLaunch();
 
         if (!FIRST_LAUNCH) loadSetsFromJson(); else {
-            ColourScrollables.init();
-            OtherBlockScrollables.init();
-            RedstoneScrollables.init();
-            MiscScrollables.init();
-            WoodScrollables.init();
-            BuildingBlockScrollables.init();
-            CopperBlockScrollables.init();
-            NaturalBlockScroller.init();
-            MobScrollables.init();
+            initDefaultSets();
+        }
+
+        int removed = deduplicate();
+        if (removed > 0) {
+            System.out.println("[ColourScroller] Removed " + removed
+                    + " duplicate item(s) on startup (an item may only belong to one set).");
+            if (!FIRST_LAUNCH) {
+                ConfigurationHandler.saveSetsToJson();
+            }
         }
 
         rebuildIndexAndApplyToItems();
 
         System.out.println(SCROLLABLE_SETS);
+    }
+
+
+    public static void reloadDefaultSets() {
+        clearAllSets();
+        initDefaultSets();
+        deduplicate();
+        rebuildIndexAndApplyToItems();
+        ConfigurationHandler.saveSetsToJson();
+    }
+
+
+    public static void initDefaultSets() {
+        ColourScrollables.init();
+        OtherBlockScrollables.init();
+        RedstoneScrollables.init();
+        MiscScrollables.init();
+        WoodScrollables.init();
+        BuildingBlockScrollables.init();
+        CopperBlockScrollables.init();
+        NaturalBlockScroller.init();
+        MobScrollables.init();
+    }
+
+    public static int deduplicate() {
+        Set<String> seen = new HashSet<>();
+        int removed = 0;
+        for (List<ColouredEntry> set : SCROLLABLE_SETS) {
+            if (set == null) continue;
+            Iterator<ColouredEntry> it = set.iterator();
+            while (it.hasNext()) {
+                ColouredEntry entry = it.next();
+                if (!seen.add(entry.id())) {
+                    System.out.println("[ColourScroller] Duplicate item '" + entry.id()
+                            + "' (type=" + entry.type() + ") — removing later occurrence.");
+                    it.remove();
+                    removed++;
+                }
+            }
+        }
+        SCROLLABLE_SETS.removeIf(s -> s == null || s.isEmpty());
+        return removed;
     }
 
 
@@ -53,6 +99,15 @@ public class ScrollableHelper {
 
     public static void rebuildIndexAndApplyToItems() {
         SCROLLABLE_LOOKUP.clear();
+
+        for (Item item : Registries.ITEM) {
+            if (item instanceof ScrollableItem scrollable) {
+                scrollable.setScrollable(false);
+                scrollable.setListIndex(0);
+                scrollable.setIndex(0);
+                scrollable.setType("");
+            }
+        }
 
         for (int listIndex = 0; listIndex < SCROLLABLE_SETS.size(); listIndex++) {
             List<ScrollableHelper.ColouredEntry> list = SCROLLABLE_SETS.get(listIndex);
@@ -90,5 +145,24 @@ public class ScrollableHelper {
 
     public static void addSet(ArrayList<ColouredEntry> set) {
         SCROLLABLE_SETS.add(set);
+    }
+
+    public static ColouredEntry entryFor(String type, Item item) {
+        String id = Registries.ITEM.getId(item).getPath();
+        return new ColouredEntry(type, id, () -> item);
+    }
+
+    public static void replaceAllSets(List<List<ColouredEntry>> newSets) {
+        SCROLLABLE_SETS.clear();
+        Set<String> seen = new HashSet<>();
+        for (List<ColouredEntry> set : newSets) {
+            if (set == null || set.isEmpty()) continue;
+            List<ColouredEntry> copy = new ArrayList<>(set.size());
+            for (ColouredEntry e : set) {
+                if (seen.add(e.id())) copy.add(e);
+            }
+            if (!copy.isEmpty()) SCROLLABLE_SETS.add(copy);
+        }
+        rebuildIndexAndApplyToItems();
     }
 }
