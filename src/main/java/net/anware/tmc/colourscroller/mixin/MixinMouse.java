@@ -77,10 +77,8 @@ public class MixinMouse {
             ScrollableItem ts = (ScrollableItem) target.getItem();
             if (!ts.scrollable()) continue;
 
-            int listIdx = ts.getListIndex();
-            if (listIdx < 0 || listIdx >= ScrollableHelper.SCROLLABLE_SETS.size()) continue;
-            List<ScrollableHelper.ColouredEntry> list = ScrollableHelper.SCROLLABLE_SETS.get(listIdx);
-            if (list == null || list.isEmpty()) continue;
+            List<ScrollableHelper.ColouredEntry> list = ScrollableHelper.getSet(ts.getListIndex());
+            if (list.isEmpty()) continue;
 
             if (list.size() > longestSize) {
                 longestSize = list.size();

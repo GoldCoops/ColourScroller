@@ -13,8 +13,6 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
-import static net.anware.tmc.colourscroller.ScrollableHelper.SCROLLABLE_SETS;
-
 @Environment(EnvType.CLIENT)
 public class ColourScroller implements ClientModInitializer {
 
@@ -43,11 +41,9 @@ public class ColourScroller implements ClientModInitializer {
 
     public static ItemStack getNextScrollable(ItemStack currentItemStack, int shift, boolean forceZero) {
         ScrollableItem scrollable = (ScrollableItem) currentItemStack.getItem();
-        int listIndex = scrollable.getListIndex();
 
-        if (listIndex < 0 || listIndex >= SCROLLABLE_SETS.size()) return ItemStack.EMPTY;
-        List<ScrollableHelper.ColouredEntry> list = SCROLLABLE_SETS.get(listIndex);
-        if (list == null || list.isEmpty()) return ItemStack.EMPTY;
+        List<ScrollableHelper.ColouredEntry> list = ScrollableHelper.getSet(scrollable.getListIndex());
+        if (list.isEmpty()) return ItemStack.EMPTY;
 
         int nextIndex = forceZero ? 0 : Math.floorMod(scrollable.getIndex() + shift, list.size());
         ScrollableHelper.ColouredEntry entry = list.get(nextIndex);

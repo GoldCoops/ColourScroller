@@ -35,7 +35,8 @@ public class ScrollableEditorScreen extends Screen {
 
     private void loadFromCurrentState() {
         workingCopy.clear();
-        for (List<ColouredEntry> set : ScrollableHelper.SCROLLABLE_SETS) {
+        for (List<ColouredEntry> set : ScrollableHelper.getSets()) {
+            // Mutable copies: SetEditScreen edits these in place before Save & Apply.
             workingCopy.add(new ArrayList<>(set));
         }
     }
