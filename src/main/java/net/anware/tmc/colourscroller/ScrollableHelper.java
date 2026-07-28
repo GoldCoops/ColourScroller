@@ -8,9 +8,9 @@ import net.minecraft.registry.Registries;
 import static net.anware.tmc.colourscroller.ConfigurationHandler.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,13 +18,38 @@ import java.util.function.Supplier;
 
 public class ScrollableHelper {
 
-    public static final List<List<ColouredEntry>> SCROLLABLE_SETS = new ArrayList<>();
+    private static final List<List<ColouredEntry>> SCROLLABLE_SETS = new ArrayList<>();
     public record ColouredEntry(String type, String id, Supplier<Item> item) {
         //no-op
     }
     private static final Map<String, ScrollInfo> SCROLLABLE_LOOKUP = new HashMap<>();
     private record ScrollInfo(String type, int listIndex, int index) {
         //no-op
+    }
+
+    /**
+     * Read-only view of every scrollable set, in list order. Both the returned list
+     * and each set inside it are immutable - mutate through {@link #addSet},
+     * {@link #replaceAllSets}, {@link #clearAllSets} or {@link #reloadDefaultSets}
+     * so the lookup index is rebuilt alongside the sets.
+     */
+    public static List<List<ColouredEntry>> getSets() {
+        return Collections.unmodifiableList(SCROLLABLE_SETS);
+    }
+
+    /** Number of scrollable sets currently loaded. */
+    public static int setCount() {
+        return SCROLLABLE_SETS.size();
+    }
+
+    /**
+     * The set at {@code listIndex}, or an empty list when the index is out of range.
+     * Items cache their list index, so a stale index left over from a previous set
+     * layout yields an empty set rather than an exception.
+     */
+    public static List<ColouredEntry> getSet(int listIndex) {
+        if (listIndex < 0 || listIndex >= SCROLLABLE_SETS.size()) return List.of();
+        return SCROLLABLE_SETS.get(listIndex);
     }
 
     public static void initialize() {
@@ -73,20 +98,25 @@ public class ScrollableHelper {
     public static int deduplicate() {
         Set<String> seen = new HashSet<>();
         int removed = 0;
+        List<List<ColouredEntry>> rebuilt = new ArrayList<>(SCROLLABLE_SETS.size());
+
         for (List<ColouredEntry> set : SCROLLABLE_SETS) {
-            if (set == null) continue;
-            Iterator<ColouredEntry> it = set.iterator();
-            while (it.hasNext()) {
-                ColouredEntry entry = it.next();
-                if (!seen.add(entry.id())) {
+            if (set == null || set.isEmpty()) continue;
+            List<ColouredEntry> kept = new ArrayList<>(set.size());
+            for (ColouredEntry entry : set) {
+                if (seen.add(entry.id())) {
+                    kept.add(entry);
+                } else {
                     System.out.println("[ColourScroller] Duplicate item '" + entry.id()
                             + "' (type=" + entry.type() + ") — removing later occurrence.");
-                    it.remove();
                     removed++;
                 }
             }
+            if (!kept.isEmpty()) rebuilt.add(List.copyOf(kept));
         }
-        SCROLLABLE_SETS.removeIf(s -> s == null || s.isEmpty());
+
+        SCROLLABLE_SETS.clear();
+        SCROLLABLE_SETS.addAll(rebuilt);
         return removed;
     }
 
@@ -140,11 +170,11 @@ public class ScrollableHelper {
             set.add(new ColouredEntry(type, id, block::asItem));
         }
 
-        SCROLLABLE_SETS.add(set);
+        SCROLLABLE_SETS.add(List.copyOf(set));
     }
 
-    public static void addSet(ArrayList<ColouredEntry> set) {
-        SCROLLABLE_SETS.add(set);
+    public static void addSet(List<ColouredEntry> set) {
+        SCROLLABLE_SETS.add(List.copyOf(set));
     }
 
     public static ColouredEntry entryFor(String type, Item item) {
@@ -154,15 +184,11 @@ public class ScrollableHelper {
 
     public static void replaceAllSets(List<List<ColouredEntry>> newSets) {
         SCROLLABLE_SETS.clear();
-        Set<String> seen = new HashSet<>();
         for (List<ColouredEntry> set : newSets) {
             if (set == null || set.isEmpty()) continue;
-            List<ColouredEntry> copy = new ArrayList<>(set.size());
-            for (ColouredEntry e : set) {
-                if (seen.add(e.id())) copy.add(e);
-            }
-            if (!copy.isEmpty()) SCROLLABLE_SETS.add(copy);
+            SCROLLABLE_SETS.add(List.copyOf(set));
         }
+        deduplicate();
         rebuildIndexAndApplyToItems();
     }
 }

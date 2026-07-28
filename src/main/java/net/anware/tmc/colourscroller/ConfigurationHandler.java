@@ -9,7 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 
-import static net.anware.tmc.colourscroller.ScrollableHelper.SCROLLABLE_SETS;
+import static net.anware.tmc.colourscroller.ScrollableHelper.getSets;
 import static net.anware.tmc.colourscroller.ScrollableHelper.addSet;
 import static net.anware.tmc.colourscroller.ScrollableHelper.ColouredEntry;
 import static net.anware.tmc.colourscroller.ScrollableHelper.rebuildIndexAndApplyToItems;
@@ -61,16 +61,13 @@ public class ConfigurationHandler {
     public static void init() {
         if (FIRST_LAUNCH) {
             List<ConfigSet> set = new ArrayList<>();
-            for (int i = 0; i < SCROLLABLE_SETS.size(); i++) {
-                if (SCROLLABLE_SETS.get(i) == null || SCROLLABLE_SETS.get(i).isEmpty()) continue;
-                int size = SCROLLABLE_SETS.get(i).size();
-                String type = SCROLLABLE_SETS.get(i).get(0).type();
-                List<Item> items = new ArrayList<>();
-                for (int j = 0; j < size; j++) {
-                    items.add(SCROLLABLE_SETS.get(i).get(j).item().get());
+            for (List<ColouredEntry> entries : getSets()) {
+                if (entries.isEmpty()) continue;
+                List<Item> items = new ArrayList<>(entries.size());
+                for (ColouredEntry entry : entries) {
+                    items.add(entry.item().get());
                 }
-                set.add(new ConfigSet(type, items));
-
+                set.add(new ConfigSet(entries.get(0).type(), items));
             }
             try {
                 mapper.writeValue(CONFIG_PATH.toFile(), set);
@@ -166,8 +163,8 @@ public class ConfigurationHandler {
 
     public static void saveSetsToJson() {
         List<ConfigSet> configSets = new ArrayList<>();
-        for (List<ColouredEntry> set : SCROLLABLE_SETS) {
-            if (set == null || set.isEmpty()) continue;
+        for (List<ColouredEntry> set : getSets()) {
+            if (set.isEmpty()) continue;
             String type = set.get(0).type();
             List<Item> items = new ArrayList<>();
             for (ColouredEntry entry : set) {
